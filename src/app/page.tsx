@@ -1,10 +1,15 @@
+import Link from 'next/link';
+import { auth } from '@clerk/nextjs/server';
 import { buttonVariants, Vortex } from '@/components';
-import { titleFont } from '@/config/fonts';
+import { titleFont } from '@/config';
 import { cn } from '@/lib';
 import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
 
-export default function Home() {
+export default async function Home() {
+  const { userId } = await auth();
+
+  const href = userId ? '/journal' : '/new-user';
+
   return (
     <div className="w-screen mx-auto h-screen overflow-hidden">
       <Vortex
@@ -16,7 +21,7 @@ export default function Home() {
         <h1
           className={`${titleFont.className} text-white text-2xl md:text-6xl font-bold text-center`}
         >
-          The Best Journal App Enhanced with AI
+          Meet The Best Journal App Enhanced with AI
         </h1>
         <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
           A journal app that helps you understand your emotions and thoughts,
@@ -24,7 +29,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col sm:flex-row items-center mt-6">
           <Link
-            href="/"
+            href={href}
             className={cn(
               buttonVariants({ variant: 'primary' }),
               'group relative'
