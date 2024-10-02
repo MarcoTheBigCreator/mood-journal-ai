@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { poppins } from '@/config';
+import { dark } from '@clerk/themes';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,10 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: {
+          colorBackground: '#171717',
+          fontFamily: poppins.style.fontFamily,
+          colorText: '#e5e5e5',
+        },
+      }}
+    >
       <html lang="en">
         <body className={poppins.className}>
-          <main className="bg-black">{children}</main>
+          <main className="bg-neutral-800 text-neutral-200">{children}</main>
         </body>
       </html>
     </ClerkProvider>

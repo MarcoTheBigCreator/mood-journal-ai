@@ -1,7 +1,7 @@
+import { ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib';
 import { cva, VariantProps } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
-import { ButtonHTMLAttributes } from 'react';
 
 export const buttonVariants = cva(
   'active:scale-95 inline-flex items-center justify-center rounded-lg transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none',
