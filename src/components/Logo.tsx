@@ -1,9 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { titleFont } from '@/config';
 import { motion } from 'framer-motion';
 import { Icons } from './icons/Icons';
-import Link from 'next/link';
 
 export const LogoWithText = () => {
   return (
