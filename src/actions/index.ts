@@ -1,2 +1,2 @@
-export { getEntriesByUserId } from './entries/getEntriesByUserId';
-export { getUserByClerkId } from './user/getUserByClerkId';
+export { getEntriesByUserIdPaginated } from './entries/get-entries-by-user-id-paginated';
+export { getUserByClerkId } from './user/get-user-by-clerk-id';

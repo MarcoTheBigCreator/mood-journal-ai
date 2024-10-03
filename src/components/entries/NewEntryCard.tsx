@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { createNewEntry } from '@/utils';
-import { Card, CardContent } from './ui/Card';
+import { Card, CardContent } from '../ui/Card';
 import { PlusCircle } from 'lucide-react';
 
 export const NewEntryCard = () => {

@@ -10,7 +10,7 @@ export default function DashboardLayout({
     <div
       className={cn(
         'rounded-md flex flex-col md:flex-row w-full flex-1 borderborder-neutral-700 overflow-hidden',
-        'h-screen'
+        'min-h-screen'
       )}
     >
       <SideMenu />

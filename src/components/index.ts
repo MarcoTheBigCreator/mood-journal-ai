@@ -1,9 +1,11 @@
-export { LogoWithText, LogoIcon } from './Logo';
-export * from './EntryCard';
+export { LogoWithText, LogoIcon } from './logos/Logo';
+export * from './entries/EntryCard';
+export * from './entries/EntryGrid';
+export * from './entries/NewEntryCard';
 export * from './icons/Icons';
-export * from './NewEntryCard';
-export * from './SideMenu';
 export * from './ui/Button';
 export * from './ui/Card';
+export * from './ui/Pagination';
 export * from './ui/Sidebar';
+export * from './ui/SideMenu';
 export * from './ui/Vortex';
