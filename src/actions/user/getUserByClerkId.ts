@@ -1,3 +1,5 @@
+'use server';
+
 import { prisma } from '@/utils';
 
 export const getUserByClerkId = async (userId: string) => {

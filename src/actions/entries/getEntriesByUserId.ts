@@ -1,3 +1,5 @@
+'use server';
+
 import { prisma } from '@/utils';
 
 export const getEntriesByUserId = async (userId: string) => {

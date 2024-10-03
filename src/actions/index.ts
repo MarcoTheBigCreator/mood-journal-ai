@@ -1,2 +1,2 @@
-export * from './entries/getEntriesByUserId';
-export * from './user/getUserByClerkId';
+export { getEntriesByUserId } from './entries/getEntriesByUserId';
+export { getUserByClerkId } from './user/getUserByClerkId';
