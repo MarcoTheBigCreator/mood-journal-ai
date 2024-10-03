@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { auth } from '@clerk/nextjs/server';
 import { buttonVariants, Vortex } from '@/components';
@@ -5,10 +6,14 @@ import { titleFont } from '@/config';
 import { cn } from '@/lib';
 import { ArrowRight } from 'lucide-react';
 
-export default async function Home() {
-  const { userId } = await auth();
+export default function Home() {
+  const { userId } = auth();
 
   const href = userId ? '/journal' : '/new-user';
+
+  if (userId) {
+    return redirect('/journal');
+  }
 
   return (
     <div className="w-screen mx-auto h-screen overflow-hidden">
