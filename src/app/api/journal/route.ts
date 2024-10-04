@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { auth } from '@clerk/nextjs/server';
 import { getUserByClerkId } from '@/actions';
@@ -9,19 +8,23 @@ export async function POST(request: Request) {
   const { userId } = auth();
 
   if (!userId) {
-    return redirect('/sign-in');
+    return NextResponse.json('No autorizado', { status: 401 });
   }
 
   const user = await getUserByClerkId(userId);
 
-  const createEntry = await prisma.journalEntry.create({
-    data: {
-      userId: user.id,
-      content: 'Write about your day here',
-    },
-  });
+  try {
+    const createEntry = await prisma.journalEntry.create({
+      data: {
+        userId: user.id,
+        content: 'Write about your day here',
+      },
+    });
 
-  revalidatePath('/journal', 'page');
-
-  return NextResponse.json({ data: createEntry });
+    return NextResponse.json({ data: createEntry });
+  } catch (error) {
+    return NextResponse.json(error, { status: 400 });
+  } finally {
+    revalidatePath('/journal', 'page');
+  }
 }
