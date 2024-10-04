@@ -3,7 +3,8 @@ import { Card } from '@/components';
 export default function JorunalLoading() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="h-10 w-48 bg-neutral-700 rounded-md mb-8 mx-auto animate-pulse" />
+      <div className="h-10 w-52 bg-neutral-700 rounded-md mb-8 mx-auto animate-pulse" />
+      <div className="h-4 w-64 bg-neutral-700 rounded-md mb-8 mx-auto animate-pulse" />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {[...Array(8)].map((_, index) => (
           <Card
@@ -16,6 +17,7 @@ export default function JorunalLoading() {
           </Card>
         ))}
       </div>
+      <div className="mt-14 h-10 w-48 bg-neutral-700 rounded-md mb-8 mx-auto animate-pulse justify-center flex" />
     </div>
   );
 }
