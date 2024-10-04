@@ -36,6 +36,10 @@ export default async function JournalPage({
         <h2 className={`${titleFont.className} text-4xl mb-8 text-center`}>
           Journal
         </h2>
+        <p className="text-sm md:text-base text-center text-violet-400 m-3 mb-10">
+          Track your emotions, monitor your mental health, and start a new
+          journal or view past entries.
+        </p>
         <EntryGrid entries={entries} />
       </div>
       <div className="mt-auto">
