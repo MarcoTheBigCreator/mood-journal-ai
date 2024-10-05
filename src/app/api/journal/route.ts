@@ -17,7 +17,8 @@ export async function POST(request: Request) {
     const createEntry = await prisma.journalEntry.create({
       data: {
         userId: user.id,
-        content: 'Write about your day here',
+        content:
+          'Write about your day here... (it will be saved automatically) 📝',
       },
     });
 

@@ -4,6 +4,7 @@ export * from './entries/EntryCard';
 export * from './entries/EntryGrid';
 export * from './entries/NewEntryCard';
 export * from './icons/Icons';
+export * from './ui/Analysis';
 export * from './ui/Button';
 export * from './ui/Card';
 export * from './ui/Pagination';
