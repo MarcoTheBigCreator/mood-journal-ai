@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
+import { Editor } from '@/components';
+import { getEntry, getUserByClerkId } from '@/actions';
 
 interface EntryPageProps {
   params: {
@@ -7,7 +9,7 @@ interface EntryPageProps {
   };
 }
 
-export default function EntryPage({ params }: EntryPageProps) {
+export default async function EntryPage({ params }: EntryPageProps) {
   const { userId } = auth();
   const { id } = params;
 
@@ -15,9 +17,15 @@ export default function EntryPage({ params }: EntryPageProps) {
     redirect('/sign-in');
   }
 
+  const journalUser = await getUserByClerkId(userId);
+  const journalUserId = journalUser.id;
+
+  const entry = await getEntry(journalUserId, id);
+
   return (
     <div>
       <h1>Hello Page {id}</h1>
+      <Editor entry={entry} />
     </div>
   );
 }

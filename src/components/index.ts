@@ -1,4 +1,5 @@
 export { LogoWithText, LogoIcon } from './logos/Logo';
+export * from './editor/Editor';
 export * from './entries/EntryCard';
 export * from './entries/EntryGrid';
 export * from './entries/NewEntryCard';
