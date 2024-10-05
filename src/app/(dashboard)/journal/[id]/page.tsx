@@ -23,8 +23,7 @@ export default async function EntryPage({ params }: EntryPageProps) {
   const entry = await getEntry(journalUserId, id);
 
   return (
-    <div>
-      <h1>Hello Page {id}</h1>
+    <div className="h-full w-full">
       <Editor entry={entry} />
     </div>
   );

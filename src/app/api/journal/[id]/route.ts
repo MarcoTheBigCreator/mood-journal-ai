@@ -4,7 +4,15 @@ import { auth } from '@clerk/nextjs/server';
 import { getUserByClerkId } from '@/actions';
 import { prisma } from '@/utils';
 
-export async function POST(request: Request) {
+interface JournalRouteProps {
+  params: {
+    id: string;
+  };
+}
+
+export async function PATCH(request: Request, { params }: JournalRouteProps) {
+  const { content } = await request.json();
+
   const { userId } = auth();
 
   if (!userId) {
@@ -14,14 +22,19 @@ export async function POST(request: Request) {
   const user = await getUserByClerkId(userId);
 
   try {
-    const createEntry = await prisma.journalEntry.create({
+    const updatedEntry = await prisma.journalEntry.update({
+      where: {
+        userId_id: {
+          userId: user.id,
+          id: params.id,
+        },
+      },
       data: {
-        userId: user.id,
-        content: 'Write about your day here',
+        content,
       },
     });
 
-    return NextResponse.json({ data: createEntry });
+    return NextResponse.json({ data: updatedEntry });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
   } finally {
