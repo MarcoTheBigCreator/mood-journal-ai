@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { auth } from '@clerk/nextjs/server';
 import { getUserByClerkId } from '@/actions';
-import { prisma } from '@/utils';
+import { analyze, prisma } from '@/utils';
 
 interface JournalRouteProps {
   params: {
@@ -31,6 +31,15 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
       },
       data: {
         content,
+      },
+    });
+
+    await prisma.aiAnalysis.update({
+      where: {
+        journalEntryId: updatedEntry.id,
+      },
+      data: {
+        ...(await analyze(updatedEntry.content)),
       },
     });
 

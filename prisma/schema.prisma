@@ -32,7 +32,7 @@ model AiAnalysis {
   id             String       @id @default(uuid())
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-  journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id])
+  journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id], onDelete: Cascade)
   journalEntryId String
   color          String
   summary        String       @db.Text
