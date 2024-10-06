@@ -21,17 +21,17 @@ export default function JournalIdLoading() {
         </div>
       </div>
       <div className="lg:w-1/3">
-        <div className="bg-neutral-800 bg-opacity-50 backdrop-blur-md rounded-xl border border-violet-500 overflow-hidden">
-          <div className="bg-violet-700 bg-opacity-50 px-6 py-4">
-            <div className="h-8 w-24 bg-violet-300 rounded"></div>
+        <div className="bg-neutral-800 bg-opacity-50 backdrop-blur-md rounded-xl border border-neutral-500 overflow-hidden">
+          <div className="bg-neutral-700 bg-opacity-50 px-6 py-4">
+            <div className="h-8 w-24 bg-neutral-300 rounded"></div>
           </div>
           <div className="p-6 space-y-6">
             {[...Array(5)].map((_, index) => (
               <div
                 key={index}
-                className="pb-4 border-b border-violet-300 border-opacity-30"
+                className="pb-4 border-b border-neutral-300 border-opacity-30"
               >
-                <div className="h-5 w-24 bg-violet-300 rounded mb-2"></div>
+                <div className="h-5 w-24 bg-neutral-300 rounded mb-2"></div>
                 <div className="h-4 bg-neutral-700 rounded w-full"></div>
               </div>
             ))}
