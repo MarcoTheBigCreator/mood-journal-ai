@@ -1,19 +1,26 @@
 import { cn } from '@/lib';
 import { titleFont } from '@/config';
+import { getColorClasses } from '@/utils';
 
 interface AnalysisProps {
   analysisData: {
-    name: string;
+    label: string;
     value: string;
   }[];
+  color: string;
 }
 
-export const Analysis = ({ analysisData }: AnalysisProps) => {
+export const Analysis = ({ analysisData, color }: AnalysisProps) => {
+  const { bg, text } = getColorClasses(color);
+
   return (
     <div className="bg-neutral-800 bg-opacity-50 backdrop-blur-md rounded-xl border border-violet-500 overflow-hidden">
-      <div className="bg-violet-700 bg-opacity-50 px-6 py-4">
+      <div className={cn('px-6 py-4 bg-opacity-50 backdrop-blur-sm', bg)}>
         <h2
-          className={`${titleFont.className} text-2xl font-bold text-violet-100`}
+          className={cn(
+            titleFont.className,
+            'text-2xl font-bold text-neutral-100'
+          )}
         >
           Analysis
         </h2>
@@ -21,7 +28,7 @@ export const Analysis = ({ analysisData }: AnalysisProps) => {
       <div className="p-6 space-y-6">
         {analysisData.map((data, index) => (
           <div
-            key={data.name}
+            key={data.label}
             className={cn(
               'pb-4',
               index !== analysisData.length - 1 &&
@@ -29,9 +36,13 @@ export const Analysis = ({ analysisData }: AnalysisProps) => {
             )}
           >
             <h3
-              className={`${titleFont.className} text-lg font-semibold text-violet-300 mb-2`}
+              className={cn(
+                titleFont.className,
+                'text-lg font-semibold mb-2',
+                text
+              )}
             >
-              {data.name}
+              {data.label}
             </h3>
             <p className="text-neutral-200">{data.value || 'N/A'}</p>
           </div>

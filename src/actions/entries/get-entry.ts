@@ -11,6 +11,9 @@ export const getEntry = async (userId: string, entryId: string) => {
           id: entryId,
         },
       },
+      include: {
+        aiAnalysis: true,
+      },
     });
 
     if (!entry) {

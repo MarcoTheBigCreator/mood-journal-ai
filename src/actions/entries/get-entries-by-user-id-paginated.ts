@@ -28,6 +28,9 @@ export const getEntriesByUserIdPaginated = async ({
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        aiAnalysis: true,
+      },
     });
 
     // Get total entries count

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useAutosave } from 'react-autosave';
-import { updateEntry } from '@/utils';
+import { dateFormatter, updateEntry } from '@/utils';
 import { Loader2, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib';
 import { titleFont } from '@/config';
@@ -35,6 +35,8 @@ export const Editor = ({ entry }: EditorProps) => {
     }
   }, []);
 
+  const formattedDate = dateFormatter(entry.updatedAt);
+
   return (
     <div
       className={cn(
@@ -48,7 +50,7 @@ export const Editor = ({ entry }: EditorProps) => {
         <h2
           className={`${titleFont.className} text-lg font-semibold text-violet-300`}
         >
-          22 April 2024
+          {formattedDate}
         </h2>
         <div className="flex items-center space-x-2">
           {isLoading && (

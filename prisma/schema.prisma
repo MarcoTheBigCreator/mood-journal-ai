@@ -34,10 +34,12 @@ model AiAnalysis {
   updatedAt      DateTime     @updatedAt
   journalEntry   JournalEntry @relation(fields: [journalEntryId], references: [id])
   journalEntryId String
-  mood           String
-  summary        String       @db.Text
   color          String
+  summary        String       @db.Text
+  subject        String
+  mood           String
   negative       Boolean
+  recommendation String       @db.Text
 
   @@unique([journalEntryId])
 }

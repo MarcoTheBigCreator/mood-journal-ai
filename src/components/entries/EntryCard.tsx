@@ -21,7 +21,10 @@ export const EntryCard = ({ entry }: EntryCardProps) => {
         </CardHeader>
         <CardContent className="flex-grow">
           <p className="text-sm text-neutral-300">
-            Mood: <span className="font-medium text-neutral-100">Sad</span>
+            Mood:{' '}
+            <span className="font-medium text-neutral-100 capitalize">
+              {entry.aiAnalysis?.mood || 'N/A'}
+            </span>
           </p>
         </CardContent>
         <CardFooter className="text-xs text-neutral-400">

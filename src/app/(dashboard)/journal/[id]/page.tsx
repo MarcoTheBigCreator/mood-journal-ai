@@ -22,12 +22,15 @@ export default async function EntryPage({ params }: EntryPageProps) {
 
   const entry = await getEntry(journalUserId, id);
 
+  const { color, summary, subject, mood, negative, recommendation } =
+    entry.aiAnalysis!;
+
   const analysisData = [
-    { name: 'Summary', value: '' },
-    { name: 'Subject', value: '' },
-    { name: 'Mood', value: '' },
-    { name: 'Negative', value: '' },
-    { name: 'Recommendation', value: '' },
+    { label: 'Summary', value: summary },
+    { label: 'Subject', value: subject },
+    { label: 'Mood', value: mood },
+    { label: 'Negative', value: negative ? 'Yes' : 'No' },
+    { label: 'Recommendations', value: recommendation },
   ];
 
   return (
@@ -36,7 +39,7 @@ export default async function EntryPage({ params }: EntryPageProps) {
         <Editor entry={entry} />
       </div>
       <div className="lg:w-1/3">
-        <Analysis analysisData={analysisData} />
+        <Analysis analysisData={analysisData} color={color} />
       </div>
     </div>
   );
