@@ -1,5 +1,3 @@
-import { Loader2 } from 'lucide-react';
-
 export default function JournalIdLoading() {
   return (
     <div className="flex flex-col lg:flex-row gap-6 h-full animate-pulse">
@@ -8,7 +6,7 @@ export default function JournalIdLoading() {
           <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-10 bg-neutral-900 bg-opacity-70 backdrop-blur-sm rounded-lg px-3 py-1.5">
             <div className="h-6 w-32 bg-violet-300 rounded"></div>
             <div className="flex items-center space-x-2">
-              <Loader2 className="w-4 h-4 text-violet-400 animate-spin" />
+              <div className="h-4 w-4 bg-violet-400 rounded-full animate-pulse"></div>
               <div className="h-4 w-16 bg-violet-400 rounded"></div>
             </div>
           </div>
