@@ -29,6 +29,6 @@ export const aiOutputSchema = z.object({
   recommendation: z
     .string()
     .describe(
-      'recommendations based on the entry to deal with the situation to support the author. Capitalized the first letter of the first word.'
+      'a serie of deep recommendations based on the entry to deal with the situation to support the author. Capitalized the first letter of the first word.'
     ),
 });

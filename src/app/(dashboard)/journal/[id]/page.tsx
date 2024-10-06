@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
-import { Analysis, Editor } from '@/components';
+import { Editor } from '@/components';
 import { getEntry, getUserByClerkId } from '@/actions';
 
 interface EntryPageProps {
@@ -22,25 +22,9 @@ export default async function EntryPage({ params }: EntryPageProps) {
 
   const entry = await getEntry(journalUserId, id);
 
-  const { color, summary, subject, mood, negative, recommendation } =
-    entry.aiAnalysis!;
-
-  const analysisData = [
-    { label: 'Summary', value: summary },
-    { label: 'Subject', value: subject },
-    { label: 'Mood', value: mood },
-    { label: 'Negative', value: negative ? 'Yes' : 'No' },
-    { label: 'Recommendations', value: recommendation },
-  ];
-
   return (
     <div className="flex flex-col lg:flex-row gap-6 h-full">
-      <div className="flex-grow lg:w-2/3">
-        <Editor entry={entry} />
-      </div>
-      <div className="lg:w-1/3">
-        <Analysis analysisData={analysisData} color={color} />
-      </div>
+      <Editor entry={entry} />
     </div>
   );
 }

@@ -24,7 +24,7 @@ export const analyze = async (content: string) => {
   const input = await getPrompt(content);
 
   const model = new ChatOpenAI({
-    temperature: 0.1,
+    temperature: 0.5,
     model: 'gpt-4o-mini-2024-07-18',
   });
 

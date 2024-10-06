@@ -34,7 +34,7 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
       },
     });
 
-    await prisma.aiAnalysis.update({
+    const updatedAiAnalysis = await prisma.aiAnalysis.update({
       where: {
         journalEntryId: updatedEntry.id,
       },
@@ -43,10 +43,13 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
       },
     });
 
-    return NextResponse.json({ data: updatedEntry });
+    return NextResponse.json({
+      data: { ...updatedEntry, aiAnalysis: updatedAiAnalysis },
+    });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
   } finally {
     revalidatePath('/journal', 'page');
+    revalidatePath(`/journal/${params.id}`, 'page');
   }
 }

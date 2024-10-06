@@ -1,16 +1,25 @@
+'use client';
+
 import { cn } from '@/lib';
 import { titleFont } from '@/config';
 import { getColorClasses } from '@/utils';
 
 interface AnalysisProps {
-  analysisData: {
-    label: string;
-    value: string;
-  }[];
-  color: string;
+  aiAnalysis: AiAnalysis;
 }
 
-export const Analysis = ({ analysisData, color }: AnalysisProps) => {
+export const Analysis = ({ aiAnalysis }: AnalysisProps) => {
+  const { color, summary, subject, mood, negative, recommendation } =
+    aiAnalysis;
+
+  const analysisData = [
+    { label: 'Summary', value: summary },
+    { label: 'Subject', value: subject },
+    { label: 'Mood', value: mood },
+    { label: 'Negative', value: negative ? 'Yes' : 'No' },
+    { label: 'Recommendations', value: recommendation },
+  ];
+
   const { bg, text } = getColorClasses(color);
 
   return (
