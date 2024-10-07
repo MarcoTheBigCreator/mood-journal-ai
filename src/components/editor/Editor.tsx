@@ -17,13 +17,14 @@ export const Editor = ({ entry }: EditorProps) => {
   const [value, setValue] = useState<string>(entry.content);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [analysis, setAnalysis] = useState(entry.aiAnalysis);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useAutosave({
     data: value,
     onSave: async (_value) => {
-      if (_value === entry.content) return;
+      if (_value === entry.content || isDeleting) return;
       setIsSaving(true);
       const data = await updateEntry(entry.id, _value);
       setAnalysis(data.aiAnalysis);
@@ -101,7 +102,11 @@ export const Editor = ({ entry }: EditorProps) => {
 
         {/* Analysis */}
         <aside className="lg:w-1/3 h-full">
-          <Analysis aiAnalysis={analysis!} entry={entry} />
+          <Analysis
+            aiAnalysis={analysis!}
+            entry={entry}
+            setIsDeleting={setIsDeleting}
+          />
         </aside>
       </div>
     </div>

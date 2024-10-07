@@ -15,7 +15,7 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
   const { userId } = auth();
 
   if (!userId) {
-    return NextResponse.json('Unauthorized', { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const user = await getUserByClerkId(userId);
@@ -42,7 +42,10 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
         },
       });
     } catch (analyzeError) {
-      console.warn('Error analyzing journal entry:', analyzeError);
+      console.warn(
+        `Error analyzing journal entry ${updatedEntry.id}:`,
+        analyzeError
+      );
       updatedAiAnalysis = null;
     }
 
@@ -61,7 +64,7 @@ export async function DELETE(request: Request, { params }: JournalRouteProps) {
   const { userId } = auth();
 
   if (!userId) {
-    return NextResponse.json('Unauthorized', { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const user = await getUserByClerkId(userId);
@@ -77,7 +80,7 @@ export async function DELETE(request: Request, { params }: JournalRouteProps) {
     });
 
     return NextResponse.json({
-      data: `Entry with id ${params.id} deleted and user ${user.id} `,
+      data: `Entry with id ${params.id} deleted and user ${user.id}`,
     });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });

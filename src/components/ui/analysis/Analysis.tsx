@@ -11,9 +11,14 @@ import { Button } from '../Button';
 interface AnalysisProps {
   aiAnalysis: AiAnalysis;
   entry: Entry;
+  setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Analysis = ({ aiAnalysis, entry }: AnalysisProps) => {
+export const Analysis = ({
+  aiAnalysis,
+  entry,
+  setIsDeleting,
+}: AnalysisProps) => {
   const router = useRouter();
 
   const { color, summary, subject, mood, negative, recommendation } =
@@ -30,10 +35,12 @@ export const Analysis = ({ aiAnalysis, entry }: AnalysisProps) => {
   const { bg, text } = getColorClasses(color);
 
   const onDeleteEntry = async () => {
+    setIsDeleting(true);
     await deleteEntry(entry.id);
     router.push(`/journal`);
     router.refresh();
   };
+
   return (
     <div className="bg-neutral-800 bg-opacity-50 backdrop-blur-md rounded-xl border border-violet-500 overflow-hidden">
       <div
