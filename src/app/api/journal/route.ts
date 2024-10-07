@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { auth } from '@clerk/nextjs/server';
 import { getUserByClerkId } from '@/actions';
-import { analyze, prisma } from '@/utils';
+import { prisma } from '@/utils';
 
 export async function POST(request: Request) {
   const { userId } = auth();
@@ -14,28 +14,21 @@ export async function POST(request: Request) {
   const user = await getUserByClerkId(userId);
 
   try {
-    const createEntry = await prisma.journalEntry.create({
+    const createdEntry = await prisma.journalEntry.create({
       data: {
         userId: user.id,
-        content:
-          'Write about your day here... (it will be saved automatically) 📝',
+        content: `Start writing here about your day, your thoughts, your feelings, or anything else that comes to mind, Then the AI will analyze it and give you some insights. (It'll be automatically saved ) 📝`,
       },
     });
-
-    const analysis = await analyze(createEntry.content);
-
-    if (!analysis) {
-      return NextResponse.json('Analysis failed', { status: 400 });
-    }
 
     await prisma.aiAnalysis.create({
       data: {
-        journalEntryId: createEntry.id,
-        ...analysis,
+        userId: user.id,
+        journalEntryId: createdEntry.id,
       },
     });
 
-    return NextResponse.json({ data: createEntry });
+    return NextResponse.json({ data: createdEntry });
   } catch (error) {
     return NextResponse.json(error, { status: 400 });
   } finally {

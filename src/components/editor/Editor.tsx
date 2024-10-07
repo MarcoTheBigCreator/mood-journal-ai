@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { useAutosave } from 'react-autosave';
 import { dateFormatter, updateEntry } from '@/utils';
 import { Loader2, CheckCircle, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib';
 import { titleFont } from '@/config';
-import { Analysis } from '../ui/Analysis';
+import { Analysis } from '../ui/analysis/Analysis';
 
 interface EditorProps {
   entry: Entry;
@@ -41,7 +42,7 @@ export const Editor = ({ entry }: EditorProps) => {
   return (
     <div className="flex flex-col h-full w-full">
       <div className="mb-4">
-        <a
+        <Link
           href="/journal"
           className="inline-flex items-center text-neutral-300 hover:text-violet-300 transition-colors mt-2 ml-2"
         >
@@ -49,7 +50,7 @@ export const Editor = ({ entry }: EditorProps) => {
           <span className={`${titleFont.className} text-sm`}>
             Back to Journal
           </span>
-        </a>
+        </Link>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 flex-grow w-full">
@@ -100,7 +101,7 @@ export const Editor = ({ entry }: EditorProps) => {
 
         {/* Analysis */}
         <aside className="lg:w-1/3 h-full">
-          <Analysis aiAnalysis={analysis!} />
+          <Analysis aiAnalysis={analysis!} entry={entry} />
         </aside>
       </div>
     </div>

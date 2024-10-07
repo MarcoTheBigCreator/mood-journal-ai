@@ -1,14 +1,21 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { cn } from '@/lib';
 import { titleFont } from '@/config';
-import { getColorClasses } from '@/utils';
+import { deleteEntry, getColorClasses } from '@/utils';
+import styles from './Analysis.module.css';
+import { Trash2 } from 'lucide-react';
+import { Button } from '../Button';
 
 interface AnalysisProps {
   aiAnalysis: AiAnalysis;
+  entry: Entry;
 }
 
-export const Analysis = ({ aiAnalysis }: AnalysisProps) => {
+export const Analysis = ({ aiAnalysis, entry }: AnalysisProps) => {
+  const router = useRouter();
+
   const { color, summary, subject, mood, negative, recommendation } =
     aiAnalysis;
 
@@ -22,9 +29,20 @@ export const Analysis = ({ aiAnalysis }: AnalysisProps) => {
 
   const { bg, text } = getColorClasses(color);
 
+  const onDeleteEntry = async () => {
+    await deleteEntry(entry.id);
+    router.push(`/journal`);
+    router.refresh();
+  };
   return (
     <div className="bg-neutral-800 bg-opacity-50 backdrop-blur-md rounded-xl border border-violet-500 overflow-hidden">
-      <div className={cn('px-6 py-4 bg-opacity-50 backdrop-blur-sm', bg)}>
+      <div
+        className={cn(
+          'px-6 py-4 bg-opacity-50 backdrop-blur-sm',
+          bg,
+          styles[bg]
+        )}
+      >
         <h2
           className={cn(
             titleFont.className,
@@ -48,7 +66,8 @@ export const Analysis = ({ aiAnalysis }: AnalysisProps) => {
               className={cn(
                 titleFont.className,
                 'text-lg font-semibold mb-2',
-                text
+                text,
+                styles[text]
               )}
             >
               {data.label}
@@ -56,6 +75,19 @@ export const Analysis = ({ aiAnalysis }: AnalysisProps) => {
             <p className="text-neutral-200">{data.value || 'N/A'}</p>
           </div>
         ))}
+      </div>
+      <div className="px-6 py-4 border-t border-violet-300 border-opacity-30">
+        <Button
+          onClick={onDeleteEntry}
+          className={cn(
+            'flex items-center justify-center w-full px-4 py-2',
+            bg,
+            styles[bg]
+          )}
+        >
+          <Trash2 className="w-5 h-5 mr-2" />
+          Delete Journal Entry
+        </Button>
       </div>
     </div>
   );

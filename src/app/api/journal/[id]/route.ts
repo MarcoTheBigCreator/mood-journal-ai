@@ -12,7 +12,6 @@ interface JournalRouteProps {
 
 export async function PATCH(request: Request, { params }: JournalRouteProps) {
   const { content } = await request.json();
-
   const { userId } = auth();
 
   if (!userId) {
@@ -29,19 +28,23 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
           id: params.id,
         },
       },
-      data: {
-        content,
-      },
+      data: { content },
     });
 
-    const updatedAiAnalysis = await prisma.aiAnalysis.update({
-      where: {
-        journalEntryId: updatedEntry.id,
-      },
-      data: {
-        ...(await analyze(updatedEntry.content)),
-      },
-    });
+    let updatedAiAnalysis;
+    try {
+      updatedAiAnalysis = await prisma.aiAnalysis.update({
+        where: {
+          journalEntryId: updatedEntry.id,
+        },
+        data: {
+          ...(await analyze(updatedEntry.content)),
+        },
+      });
+    } catch (analyzeError) {
+      console.warn('Error analyzing journal entry:', analyzeError);
+      updatedAiAnalysis = null;
+    }
 
     return NextResponse.json({
       data: { ...updatedEntry, aiAnalysis: updatedAiAnalysis },
@@ -51,5 +54,34 @@ export async function PATCH(request: Request, { params }: JournalRouteProps) {
   } finally {
     revalidatePath('/journal', 'page');
     revalidatePath(`/journal/${params.id}`, 'page');
+  }
+}
+
+export async function DELETE(request: Request, { params }: JournalRouteProps) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return NextResponse.json('Unauthorized', { status: 401 });
+  }
+
+  const user = await getUserByClerkId(userId);
+
+  try {
+    await prisma.journalEntry.delete({
+      where: {
+        userId_id: {
+          userId: user.id,
+          id: params.id,
+        },
+      },
+    });
+
+    return NextResponse.json({
+      data: `Entry with id ${params.id} deleted and user ${user.id} `,
+    });
+  } catch (error) {
+    return NextResponse.json(error, { status: 400 });
+  } finally {
+    revalidatePath('/journal', 'page');
   }
 }

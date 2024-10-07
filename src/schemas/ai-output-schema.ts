@@ -4,7 +4,7 @@ export const aiOutputSchema = z.object({
   color: z
     .string()
     .describe(
-      'a color that represents the mood of the entry use the tailwind colors, just the colors, not the entire class. Example blue for representing sadness.'
+      'a color that represents the mood of the entry you can choose of this variety (red, blue ,green ,yellow ,purple, pink ,indigo ,gray ,violet ,orange, teal ,cyan, lime, amber, emerald ,fuchsia, rose, sky, slate). Example blue for representing sadness.'
     ),
   summary: z
     .string()
@@ -24,7 +24,7 @@ export const aiOutputSchema = z.object({
   negative: z
     .boolean()
     .describe(
-      'is the journal entry negative? (i.e. does it contain negative emotions?). Capitalized the first letter of the first word.'
+      'is the journal entry negative? (i.e. does it contain negative emotions?)'
     ),
   recommendation: z
     .string()

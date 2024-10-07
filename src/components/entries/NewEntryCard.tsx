@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { createNewEntry } from '@/utils';
-import { Card, CardContent } from '../ui/Card';
 import { PlusCircle } from 'lucide-react';
+import { Card, CardContent } from '../ui/Card';
 
 export const NewEntryCard = () => {
   const router = useRouter();
@@ -11,6 +11,7 @@ export const NewEntryCard = () => {
   const handleNewEntry = async () => {
     const data = await createNewEntry();
     router.push(`/journal/${data.id}`);
+    router.refresh();
   };
 
   return (

@@ -26,7 +26,7 @@ export const getEntriesByUserIdPaginated = async ({
         userId,
       },
       orderBy: {
-        createdAt: 'desc',
+        updatedAt: 'desc',
       },
       include: {
         aiAnalysis: true,
